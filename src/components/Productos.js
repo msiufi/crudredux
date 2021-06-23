@@ -1,17 +1,52 @@
-import React, {Fragment} from 'react';
+import React, { Fragment, useEffect } from "react";
+import Producto from './Producto'
+
+//Redux
+import { useSelector, useDispatch } from "react-redux";
+import { obtenerProductosAction } from "../actions/productoActions";
 
 const Productos = () => {
-  return ( 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //Consultar la API
+    const cargarProductos = () => dispatch(obtenerProductosAction());
+    cargarProductos();
+  }, []);
+
+  //Obtener el state
+  const productos = useSelector( state => state.productos.productos);
+  const error = useSelector( state => state.productos.error)
+  const cargando = useSelector(state => state.productos.loading)
+
+  return (
     <Fragment>
+      <h2 className="text-center my-y">Listado de Productos</h2>
 
-    <h2 className="text-center my-y">Hola soy productos</h2>
+      { error ? <p className="font-weight-bold alert alert-danger tect-center mt-4">Hubo un error</p> : null}
+      { cargando? <p className="text-center alert-warning"> Cargando... </p> :null}
 
-    <table className="table"></table>
-
-
+      <table className="table table-stripped">
+        <thead className="bg-primary table-dark">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          { productos.length === 0? 'No Hay Prodcutos' : (
+            productos.map(producto => (
+              <Producto
+                key={producto.id}
+                producto={producto}
+              />
+            ))
+          )}
+        </tbody>
+      </table>
     </Fragment>
+  );
+};
 
-   );
-}
- 
 export default Productos;

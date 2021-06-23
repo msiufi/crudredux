@@ -1,16 +1,6 @@
 {
   "productos": [
     {
-      "id": 1,
-      "nombre": "Jugo de Zanahoria",
-      "precio": "31111"
-    },
-    {
-      "id": 2,
-      "nombre": "Jugo de Naranja",
-      "precio": "1"
-    },
-    {
       "nombre": "Jugo de Naranja",
       "precio": "300",
       "id": 3
@@ -26,14 +16,9 @@
       "id": 5
     },
     {
-      "nombre": "Costeleta 1 Kg",
-      "precio": 600,
-      "id": 6
-    },
-    {
-      "nombre": "asd",
-      "precio": 123,
-      "id": 7
+      "nombre": "Jugo pña",
+      "precio": 100,
+      "id": 8
     }
   ]
 }
