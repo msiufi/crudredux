@@ -7,7 +7,8 @@ import {
   DESCARGA_PRODUCTOS_ERROR,
   OBTENER_PRODUCTO_ELIMINAR,
   PRODUCTO_ELIMINADO_EXITO,
-  PRODUCTO_ELIMINADO_ERROR
+  PRODUCTO_ELIMINADO_ERROR,
+  OBTENER_PRODUCTO_EDITAR
 } from "../types";
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
@@ -101,8 +102,16 @@ export function borrarProductoAction(id) {
     try {
       await clienteAxios.delete(`/productos/${id}`);
       dispatch( eliminarProductoExito() )
+
+      //Si se elimina
+      Swal.fire(
+        'Eliminado!',
+        'El producto se elimino correctamente',
+        'success'
+      )
     } catch (error) {
-      
+      console.log(error);
+      dispatch( eliminarProductoError())
     }
   }
 }
@@ -118,4 +127,16 @@ const eliminarProductoExito = () => ({
 const eliminarProductoError = () => ({
   type: PRODUCTO_ELIMINADO_ERROR,
   payload: true
+})
+
+//Colocar producto en edicion
+export function obtenerProductoEditar(producto) {
+  return (dispatch) => {
+    dispatch( obtenerProductoAction(producto))
+  }
+}
+
+const obtenerProductoAction = producto => ({
+type: OBTENER_PRODUCTO_EDITAR,
+payload: producto
 })
